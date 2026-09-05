@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 1 Pendidikan Agama - Kelompok</title>
+    <style>
+        /* Variabel CSS untuk Light Mode (Default) */
+        :root {
+            --mint-green: #e6f0e3; 
+            --sage-green: #a8bfa1; 
+            --pine-green: #244c36; 
+            --white: #ffffff;
+            --light-gray: #f9f9f9;
+            --text-color: #333333;
+            --quote-text: #444444;
+            --pattern-color: rgba(168, 191, 161, 0.3);
+            --nav-text: #ffffff;
+        }
+
+        /* Variabel CSS untuk Dark Mode */
+        body.dark-mode {
+            --mint-green: #121c16; 
+            --sage-green: #4a6b53; 
+            --pine-green: #e6f0e3; 
+            --white: #1d2e24;      
+            --light-gray: #15221b; 
+            --text-color: #d1e0d7; 
+            --quote-text: #a8bfa1; 
+            --pattern-color: rgba(230, 240, 227, 0.05);
+            --nav-text: #121c16;   
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--mint-green);
+            color: var(--text-color);
+            background-image: 
+                linear-gradient(135deg, var(--pattern-color) 25%, transparent 25%), 
+                linear-gradient(225deg, var(--pattern-color) 25%, transparent 25%), 
+                linear-gradient(45deg, var(--pattern-color) 25%, transparent 25%), 
+                linear-gradient(315deg, var(--pattern-color) 25%, var(--mint-green) 25%);
+            background-position:  15px 0, 15px 0, 0 0, 0 0;
+            background-size: 30px 30px;
+            background-repeat: repeat;
+            line-height: 1.8;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Navbar Styling */
+        nav {
+            background-color: var(--pine-green);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background-color 0.4s ease;
+        }
+
+        .nav-brand {
+            color: var(--nav-text);
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: 'Georgia', serif;
+            letter-spacing: 1px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-links li a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1.2rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .nav-links li a:hover, .nav-links li a.active {
+            background-color: var(--sage-green);
+            color: var(--white);
+            font-weight: bold;
+        }
+
+        /* Tombol Switch Dark/Light Mode */
+        .theme-toggle-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            outline: none;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Container Content */
+        .container {
+            max-width: 950px;
+            margin: 3rem auto;
+            background-color: var(--white);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            flex: 1;
+            border-top: 8px solid var(--pine-green);
+            border-bottom: 8px solid var(--pine-green);
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+        }
+
+        /* Typography & Headings */
+        h1, h2, h3 {
+            color: var(--pine-green);
+            font-family: 'Georgia', serif;
+            transition: color 0.4s ease;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--sage-green);
+            padding-bottom: 1rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        
+        h1::after {
+            content: "❖";
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--white);
+            padding: 0 10px;
+            color: var(--sage-green);
+            font-size: 1.5rem;
+            transition: background-color 0.4s ease;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: "✦";
+            color: var(--sage-green);
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            text-align: justify;
+        }
+
+        /* Styling untuk Gambar Ayat/Hadist */
+        .verse-img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 1.5rem auto 0.5rem auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #ffffff; 
+            padding: 10px;
+        }
+
+        body.dark-mode .verse-img {
+            opacity: 0.9;
+        }
+
+        /* Section Blockquote untuk Terjemahan */
+        .quote-box {
+            background-color: var(--light-gray);
+            border-left: 5px solid var(--sage-green);
+            padding: 1.5rem;
+            margin: 0.5rem 0 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            color: var(--quote-text);
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Section Toggling */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Layout untuk Menampung Beberapa Profil */
+        .profiles-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        /* Profile Card Styling (About Us) */
+        .profile-card {
+            text-align: center;
+            background-color: var(--mint-green);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            border: 2px dashed var(--sage-green);
+            flex: 1 1 300px; /* Fleksibel untuk ukuran layar */
+            max-width: 400px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            transition: background-color 0.4s ease;
+        }
+
+        .profile-icon {
+            font-size: 6rem;
+            color: var(--pine-green);
+            margin-bottom: 1.5rem;
+            transition: color 0.4s ease;
+        }
+
+        .profile-details {
+            font-size: 1.15rem;
+            color: var(--pine-green);
+            margin-top: 1.5rem;
+            transition: color 0.4s ease;
+        }
+
+        .profile-details p {
+            text-align: left;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid var(--sage-green);
+            padding-bottom: 0.5rem;
+        }
+
+        .profile-details strong {
+            display: inline-block;
+            width: 140px;
+            color: var(--pine-green);
+            transition: color 0.4s ease;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--pine-green);
+            color: var(--nav-text);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+            border-top: 5px solid var(--sage-green);
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        footer p {
+            margin-bottom: 0;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-brand { display: none; }
+            .nav-right { width: 100%; justify-content: space-between; }
+            .container { margin: 1.5rem; padding: 1.5rem; }
+            .profile-details strong { display: block; width: 100%; margin-bottom: 0.2rem; }
+            .profile-details p { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bagian Navigasi (Navbar) -->
+    <nav>
+        <div class="nav-brand">Tugas Agama</div>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a id="nav-home" class="active" onclick="switchTab('home')">Home</a></li>
+                <li><a id="nav-about" onclick="switchTab('about')">About Us</a></li>
+            </ul>
+            <!-- Tombol Switch Mode -->
+            <button id="theme-toggle" class="theme-toggle-btn" title="Ganti Mode Gelap/Terang">
+                🌙
+            </button>
+        </div>
+    </nav>
+
+    <!-- Kontainer Konten Utama -->
+    <div class="container">
+        
+        <!-- HALAMAN HOME (Materi Word) -->
+        <div id="home" class="page-section active">
+            <h1>Menggali Hakikat Manusia: Integrasi Pandangan Islam, Ilmu Pengetahuan, dan Nilai-Nilai Kemanusiaan</h1>
+            
+            <h2>1. Perspektif Islam</h2>
+            <p>Manusia dalam Al Qur’an sebagai makhluk Allah SWT terdiri dari zat yang bersifat lahir/ pisikdan zat yang bersifat batin atau non pisik[cite: 1]. Dikenal juga dengan nama roh dan jasad[cite: 1]. Kedua unsur ini membentuk senyawa sehingga terwujud proses dan mekanisme hidup[cite: 1]. Apabila kedua unsur ini mengalami penguraian, maka proses dan mekanisme hidup akan berhenti[cite: 1]. Peristiwa ini dinamai dengan kematian[cite: 1].</p>
+            
+            <p>Hakikat Roh atau jiwa manusia pada perspektif Islam berdasarkan Q.S Al-Isra’(7):85, roh ialah sesuatu yang gaib(tak kasat mata) dan menjadi Rahasia Allah SWT[cite: 1].</p>
+            
+            <!-- GAMBAR 1: QS Al-Isra: 85 -->
+            <img src="Screenshot 2026-09-04 184835.png" alt="QS Al-Isra 85" class="verse-img">
+            <div class="quote-box">
+                “Dan mereka bertanya kepadamu (Muhammad) tentang roh. Katakanlah, 'Roh itu termasuk urusan Tuhanku, sedangkan kamu tidak diberi pengetahuan kecuali sedikit.”[cite: 1]
+            </div>
+            
+            <p>Dari ayat ini menegaskan 2 hal yakni keterbatasan Akal manusia dan dimensi ilahi[cite: 1]. Pada keterbatasan Batasan manusia, manusia hanya diberikan sedikit ilmu tentang roh seperti gejala kehidupan yang ditimbulkannnya, esensi sejati nya roh berada diluar jangkauan sains dan akal manusia[cite: 1]. Kemudian dimensi ilahi, Allah memberikan roh kepada jasad fisik sehingga memberikan kehidupan pada manusia lalu manusia menjadi mahkluk yang hidup[cite: 1].</p>
+
+            <p>Kemudian untuk konsep fitrah terdapat pada QS. Ar-Rum (30): 30, yang mana dalam surah menjelaskan bahwa manusia diciptakan dengan membawa kecenderungan alami yang baik[cite: 1].</p>
+            
+            <!-- GAMBAR 2: QS Ar-Rum: 30 -->
+            <img src="Screenshot 2026-09-04 191915.png" alt="QS Ar-Rum 30" class="verse-img">
+            <div class="quote-box">
+                “Maka hadapkanlah wajahmu dengan lurus kepada agama (Allah); (tetaplah atas) fitrah Allah yang telah menciptakan manusia menurut fitrah itu. Tidak ada perubahan pada ciptaan Allah. (Itulah) agama yang lurus; tetapi kebanyakan manusia tidak mengetahui.”[cite: 1]
+            </div>
+            
+            <p>Dijelaskan pada ayat ini bahwa fitrah ialah manusia lahir dalam keadaan suci dan cendrung alami untuk mengakui kebenaran serta menyembah Allah SWT[cite: 1]. Dan juga ada hadist mengenai konsep fitrah ini:</p>
+            
+            <!-- GAMBAR 3: Hadis Fitrah -->
+            <img src="Screenshot 2026-09-04 192227.png" alt="Hadist Fitrah" class="verse-img">
+            <div class="quote-box">
+                ”Setiap anak dilahirkan dalam keadaan fitrah. Kemudian kedua orang tuanyalah yang menjadikannya Yahudi, Nasrani, atau Majusi." (HR. Bukhari No. 1385, Muslim No. 2658)[cite: 1].
+            </div>
+
+            <p>Dan kemudian yang terakhir mengenai Tujuan utama penciptaan manusia yang tertulis pada QS. Az-Zariyat (51): 56, berisi tentang keberadaan manusia di dunia memiliki misi yang sangat spesifik[cite: 1].</p>
+            
+            <!-- GAMBAR 4: QS Az-Zariyat: 56 -->
+            <img src="Screenshot 2026-09-04 192658.png" alt="QS Az-Zariyat 56" class="verse-img">
+            <div class="quote-box">
+                "Aku tidak menciptakan jin dan manusia melainkan agar mereka beribadah kepada-Ku."[cite: 1]
+            </div>
+            
+            <p>Pada dasarnya eksistensi manusia di dunia mempunyai tujuan utama, yaitu menghambakan diri (beribadah) hanya kepada Allah, baik melalui ibadah mahdlah (ritual) maupun ghairu mahdlah (muamalah dan perbuatan baik sehari-hari)[cite: 1]. Ibadah yang Luas (Syamil) ialah ibadah dalam Islam tidak terbatas pada ritual formal seperti salat dan puasa saja (ibadah mahdhah)[cite: 1]. Ibadah mencakup seluruh aktivitas kehidupan mulai dari bekerja, belajar, hingga berbuat baik kepada sesame dan selama dilakukan dengan ikhlas demi mencari rida Allah (ibadah ghairu mahdhah)[cite: 1]. Keselarasan Peran merupakan tujuan ibadah ini berjalan beriringan dengan peran manusia sebagai khalifah (pemimpin/pengelola) di muka bumi untuk memakmurkan dunia sesuai dengan syariatnya[cite: 1].</p>
+
+            <h2>2. Perspektif Sains</h2>
+            <p>Terdapat keselarasan penciptaan manusia yang diterangkan Al-Qur'an dengan temuan ilmu embriologi modern[cite: 1]. Para peneliti menunjukkan bahwa proses biologis reproduksi manusia mulai dari pembuahan sel telur oleh sperma hingga kelahiran sejalan dengan tahapan yang digambarkan dalam ayat-ayat Al-Qur'an tentang nutfah, 'alaqah, dan mudghah[cite: 1].</p>
+            
+            <p>Konsep manusia lahir secara sains yaitu secara Bereproduksi[cite: 1]. Setiap perempuan memiliki sel telur yang tersimpan di saluran Fallopi bila tidak dibuahi[cite: 1]. Saat pembuahan terjadi, hanya satu dari jutaan sperma yang berhasil membuahi sel telur[cite: 1]. Sel telur yang telah dibuahi kemudian menempel di dinding rahim (implantasi) selama sekitar 3 bulan, lalu janin berkembang selama kurang lebih 6 bulan berikutnya hingga persalinan[cite: 1].</p>
+
+            <p><strong>Tahapan menurut Sadler (2012) ada 5 tahap utama:</strong></p>
+            <ul>
+                <li>Gametogenesis ialah pembentukan gamet (sel telur dan sperma)[cite: 1].</li>
+                <li>Minggu ke-1 terjadi proses ovulasi hingga implantasi[cite: 1].</li>
+                <li>Minggu ke-2 terjadinya pembentukan bilaminar germ disc yaitu embrio dua lapis[cite: 1].</li>
+                <li>Minggu ke-3 sampai 8 adalah periode embrionik terjadi pembentukan sistem-sistem tubuh[cite: 1].</li>
+                <li>Bulan ke-3 hingga persalinan adalah masa fetus, plasenta berperan aktif dalam perkembangan[cite: 1].</li>
+            </ul>
+
+            <p><strong>Tahapan menurut Dudek (2011) 4 tahap:</strong></p>
+            <ul>
+                <li>Prefertilisasi adalah perkembangan organ reproduksi, kromosom, meiosis, spermatogenesis[cite: 1].</li>
+                <li>Minggu 1 (hari 1–7) berlangsungnya fertilisasi, pembelahan sel, blastosis, implantasi[cite: 1].</li>
+                <li>Minggu 2 (hari 8–14) terjadinya pembentukan embrioblas dan trofoblas lanjutan[cite: 1].</li>
+                <li>Periode embrionik hingga organogenesis pembentukan organ dan sistem tubuh sampai proses kelahiran[cite: 1].</li>
+            </ul>
+
+            <p>Secara aspek kesehatan reproduksi & psikologis kami mengutip dari artikel mengutip definisi WHO (1992) bahwa kesehatan reproduksi bukan sekadar terbebas dari penyakit fisik, tetapi kondisi sehat yang utuh secara mental, fisik, sosial, serta lingkungan[cite: 1]. Aspek psikologis yang disinggung terutama melalui rujukan pada penelitian Raharusun (2021) tentang kajian psikosufistik, yang memandang proses janin dalam kandungan berhubungan dengan tingkatan spiritual dasar (maqam nafs) menurut teori Syaikh Hakim Muinuddin Chisyti menunjukkan bahwa perkembangan manusia tidak hanya dipahami secara biologis, namun juga punya dimensi jiwa/spiritual sejak dalam kandungan[cite: 1].</p>
+
+            <h2>3. Profil Manusia Unggul Bermartabat</h2>
+            <p>Allah SWT sengaja menciptakan manusia sebagai makhluk yang paling sempurna, mengungguli di atas segala makhluk yang diciptakan-Nya, baik makhluk nyata maupun makhluk gaib[cite: 1]. Di samping itu dia mempunyai martabat yang sangat tinggi[cite: 1]. Kesempurnaan kejadian manusia itu karena manusia itu akan mengemban tugas yang sangat berat[cite: 1]. Oleh sebab itu manusia sebagai makhluk yang bermatabat harus menghadapkan dirinya kepada kebenaran dan kesiapan untuk menggunakan pikirannya, dalam menjalankan perintah Allah swt sebagai hamba yang taat sesuai fitrahnya[cite: 1].</p>
+        </div>
+
+        <!-- HALAMAN ABOUT US (Profil) -->
+        <div id="about" class="page-section">
+            <h1>About Us</h1>
+            
+            <div class="profiles-container">
+                <!-- PROFIL 1: Ragil -->
+                <div class="profile-card">
+                    <!-- Ikon Profil SVG -->
+                    <div class="profile-icon">
+                        <svg width="100" height="100" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 6C13.66 6 15 7.34 15 9C15 10.66 13.66 12 12 12C10.34 12 9 10.66 9 9C9 7.34 10.34 6 12 6ZM12 20.2C9.5 20.2 7.29 18.92 6 16.98C6.03 14.99 10 13.9 12 13.9C13.99 13.9 17.97 14.99 18 16.98C16.71 18.92 14.5 20.2 12 20.2Z"/>
+                        </svg>
+                    </div>
+                    <h2>Profil Mahasiswa 1</h2>
+                    <div class="profile-details">
+                        <p><strong>Nama</strong> : Ragil Akma Zayra</p>
+                        <p><strong>NIM</strong> : 25343078</p>
+                        <p><strong>Fakultas</strong> : Teknik</p>
+                        <p><strong>Departemen</strong> : Elektronika</p>
+                        <p><strong>Program Studi</strong> : Informatika</p>
+                    </div>
+                </div>
+
+                <!-- PROFIL 2: Haziq -->
+                <div class="profile-card">
+                    <!-- Ikon Profil SVG -->
+                    <div class="profile-icon">
+                        <svg width="100" height="100" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 6C13.66 6 15 7.34 15 9C15 10.66 13.66 12 12 12C10.34 12 9 10.66 9 9C9 7.34 10.34 6 12 6ZM12 20.2C9.5 20.2 7.29 18.92 6 16.98C6.03 14.99 10 13.9 12 13.9C13.99 13.9 17.97 14.99 18 16.98C16.71 18.92 14.5 20.2 12 20.2Z"/>
+                        </svg>
+                    </div>
+                    <h2>Profil Mahasiswa 2</h2>
+                    <div class="profile-details">
+                        <p><strong>Nama</strong> : Haziq Ahmad Karel</p>
+                        <p><strong>NIM</strong> : 25343124</p>
+                        <p><strong>Fakultas</strong> : Teknik</p>
+                        <p><strong>Departemen</strong> : Elektronika</p>
+                        <p><strong>Program Studi</strong> : Informatika</p>
+                    </div>
+                </div>
+            </div> <!-- End of profiles-container -->
+
+        </div>
+
+    </div>
+
+    <!-- Bagian Footer (Diperbarui) -->
+    <footer>
+        <p>website ini dibuat untuk memenuhi tugas Pendidikan Agama</p>
+    </footer>
+
+    <!-- JavaScript untuk Interaktivitas & Fitur Dark Mode -->
+    <script>
+        // --- FITUR GANTI HALAMAN (TABS) ---
+        function switchTab(tabId) {
+            document.querySelectorAll('.page-section').forEach(function(section) {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-links a').forEach(function(nav) {
+                nav.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('nav-' + tabId).classList.add('active');
+        }
+
+        // --- FITUR DARK/LIGHT MODE ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggleBtn.textContent = '☀️';
+        } else {
+            themeToggleBtn.textContent = '🌙'; 
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggleBtn.textContent = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggleBtn.textContent = '🌙';
+            }
+        });
+    </script>
+</body>
+</html>
