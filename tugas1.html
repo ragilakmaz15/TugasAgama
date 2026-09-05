@@ -76,6 +76,7 @@
             font-weight: bold;
             font-family: 'Georgia', serif;
             letter-spacing: 1px;
+            text-align: center;
         }
 
         .nav-right {
@@ -310,13 +311,80 @@
             font-size: 1rem;
         }
 
-        /* Responsive */
+        /* =========================================
+           RESPONSIVE DESIGN (KHUSUS UNTUK HP & TABLET) 
+           ========================================= */
         @media (max-width: 768px) {
-            .nav-brand { display: none; }
-            .nav-right { width: 100%; justify-content: space-between; }
-            .container { margin: 1.5rem; padding: 1.5rem; }
-            .profile-details strong { display: block; width: 100%; margin-bottom: 0.2rem; }
-            .profile-details p { text-align: center; }
+            /* Navbar ditata agar turun ke bawah (stack) */
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .nav-brand {
+                font-size: 1.4rem;
+            }
+            .nav-right {
+                width: 100%;
+                justify-content: center;
+                gap: 1rem;
+            }
+            .nav-links {
+                gap: 0.5rem;
+            }
+            .nav-links li a {
+                font-size: 1rem;
+                padding: 0.5rem 0.8rem;
+            }
+
+            /* Container lebih padat agar tidak boros ruang di HP */
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+                border-top-width: 5px;
+                border-bottom-width: 5px;
+            }
+
+            /* Mengecilkan font heading */
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            h1::after {
+                font-size: 1.2rem;
+                bottom: -12px;
+            }
+            h2 {
+                font-size: 1.2rem;
+                margin-top: 2rem;
+            }
+
+            /* Kotak kutipan dan teks dipadatkan */
+            .quote-box {
+                padding: 1rem;
+                font-size: 0.95rem;
+            }
+            p, li {
+                font-size: 0.95rem;
+            }
+
+            /* Profil Card disesuaikan untuk HP */
+            .profile-card {
+                padding: 2rem 1.5rem;
+            }
+            .profile-icon {
+                font-size: 4rem;
+                margin-bottom: 1rem;
+            }
+            .profile-details strong {
+                display: block;
+                width: 100%;
+                margin-bottom: 0.2rem;
+                text-align: center; /* Label ke tengah */
+            }
+            .profile-details p {
+                text-align: center; /* Isi teks ke tengah */
+            }
         }
     </style>
 </head>
